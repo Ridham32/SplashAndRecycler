@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.renderscript.ScriptGroup.Binding
+import android.text.method.TextKeyListener.clear
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
@@ -65,6 +66,11 @@ class MainActivity : AppCompatActivity(),recyclerinterface {
                             return null
                         }
 
+                        override fun onPostExecute(result: Void?) {
+                            super.onPostExecute(result)
+                            getNotesfun()
+                        }
+
                     }
                     insert().execute()
 
@@ -84,16 +90,48 @@ class MainActivity : AppCompatActivity(),recyclerinterface {
             }
             dialog.show()
         }
-
+           getNotesfun()
     }
 
-    override fun onDeleteClick(position: Int) {
-        student.removeAt(position)
-        adapter.notifyDataSetChanged()
 
+    fun getNotesfun(){
+        student.clear()
+
+        class getNotesClass:AsyncTask<Void,Void,Void>(){
+            override fun doInBackground(vararg p0: Void?): Void? {
+                student.addAll(notesDbObj1.notesDao().getNotes())
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                super.onPostExecute(result)
+                adapter.notifyDataSetChanged()
+            }
+
+        }
+        getNotesClass().execute()
+    }
+
+
+    override fun onDeleteClick(position: Int) {
+        class getdeleteNotesClass: AsyncTask<Void,Void,Void>() {
+            override fun doInBackground(vararg p0: Void?): Void? {
+                notesDbObj1.notesDao().deleteNotes(student[position])
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                super.onPostExecute(result)
+                getNotesfun()
+
+            }
+
+        }
+        getdeleteNotesClass().execute()
     }
 
     override fun onUpdateClick(position: Int) {
+
         var dialog = Dialog(this)
         var dialogBinding = CustomdialogfabBinding.inflate(layoutInflater)
         dialog.setContentView(dialogBinding.root)
@@ -107,13 +145,33 @@ class MainActivity : AppCompatActivity(),recyclerinterface {
             } else if (dialogBinding.etCustomDescription.text.toString().isNullOrEmpty()) {
                 dialogBinding.etCustomDescription.error = "Enter Your Rollno"
             } else {
-                student.add(
-                    NotesEntityDataClass(
-                        title = dialogBinding.etCustomtitle.text.toString(),
+//                student.add(
+//                    NotesEntityDataClass(
+//                        title = dialogBinding.etCustomtitle.text.toString(),
+//                        description = dialogBinding.etCustomDescription.text.toString()
+//                    )
+//                )
+                class getupdateNotesClass: AsyncTask<Void,Void,Void>(){
+                    override fun doInBackground(vararg p0: Void?): Void? {
+                        notesDbObj1.notesDao().updateNotes(NotesEntityDataClass(
+                            id = student[position].id, // give the position's id
+                       title = dialogBinding.etCustomtitle.text.toString(),
                         description = dialogBinding.etCustomDescription.text.toString()
                     )
-                )
-                adapter.notifyDataSetChanged()
+                        )
+
+                        return null
+                    }
+
+                    override fun onPostExecute(result: Void?) {
+                        super.onPostExecute(result)
+                        getNotesfun()
+                    }
+
+
+                }
+                getupdateNotesClass().execute()
+
                 dialog.dismiss()
 
             }

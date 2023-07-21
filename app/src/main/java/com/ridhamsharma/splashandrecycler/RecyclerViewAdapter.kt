@@ -12,6 +12,7 @@ class RecyclerViewAdapter(var student:ArrayList<NotesEntityDataClass>,var recycl
         var tvTitle = view.findViewById<TextView>(R.id.tvTitle)
        var tvDescription = view.findViewById<TextView>(R.id.tvDescription)
         var btnUpdate = view.findViewById<Button>(R.id.btnUpdate)
+        var btnDelete=view.findViewById<Button>(R.id.btnDelete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +33,9 @@ class RecyclerViewAdapter(var student:ArrayList<NotesEntityDataClass>,var recycl
   holder.btnUpdate.setOnClickListener {
       recyclerInterface.onUpdateClick(position)
   }
+        holder.btnDelete.setOnClickListener{
+            recyclerInterface.onDeleteClick(position)
+        }
 
 
     }
