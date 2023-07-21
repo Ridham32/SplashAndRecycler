@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SplashAndRecycler</string>
+    <string name="update">UPDATE</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="title">TITLE</string>
+    <string name="delete">DELETE</string>
+    <string name="customtitle">TITLE</string>
+    <string name="customdescription">DESCRIPTION</string>
+    <string name="add">Add</string>
+</resources>
