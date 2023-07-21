@@ -7,10 +7,10 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapter(var student:ArrayList<DataClass>,var recyclerInterface:recyclerinterface) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> (){
+class RecyclerViewAdapter(var student:ArrayList<NotesEntityDataClass>,var recyclerInterface:recyclerinterface) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> (){
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view){
-        var tvName = view.findViewById<TextView>(R.id.tvName)
-       var tvRollNo = view.findViewById<TextView>(R.id.tvRollNo)
+        var tvTitle = view.findViewById<TextView>(R.id.tvTitle)
+       var tvDescription = view.findViewById<TextView>(R.id.tvDescription)
         var btnUpdate = view.findViewById<Button>(R.id.btnUpdate)
     }
 
@@ -25,10 +25,10 @@ class RecyclerViewAdapter(var student:ArrayList<DataClass>,var recyclerInterface
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //values set
-        holder.tvName.setText("position $position")
-       holder.tvRollNo.setText(" position $position")
-        holder.tvRollNo.setText(student[position].rollno.toString())
-        holder.tvName.setText(student[position].name)
+        holder.tvTitle.setText("position $position")
+       holder.tvDescription.setText(" position $position")
+        holder.tvDescription.setText(student[position].description)
+        holder.tvTitle.setText(student[position].title)
   holder.btnUpdate.setOnClickListener {
       recyclerInterface.onUpdateClick(position)
   }

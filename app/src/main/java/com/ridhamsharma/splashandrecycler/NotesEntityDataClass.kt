@@ -12,7 +12,7 @@ data class NotesEntityDataClass(
     @ColumnInfo
     var description: String?= null,
     @ColumnInfo
-    var tile: String?= null
+    var title: String?= null
 
 )
 

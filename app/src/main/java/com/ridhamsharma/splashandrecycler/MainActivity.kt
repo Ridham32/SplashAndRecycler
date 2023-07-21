@@ -1,6 +1,7 @@
 package com.ridhamsharma.splashandrecycler
 
 import android.app.Dialog
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.renderscript.ScriptGroup.Binding
@@ -16,7 +17,7 @@ import com.ridhamsharma.splashandrecycler.databinding.CustomdialogfabBinding
 class MainActivity : AppCompatActivity(),recyclerinterface {
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: RecyclerViewAdapter
-    var student = arrayListOf<DataClass>()
+    var student = arrayListOf<NotesEntityDataClass>()
     lateinit var layoutManager: LinearLayoutManager
     lateinit var notesDbObj1:NotesDb
 
@@ -48,17 +49,33 @@ class MainActivity : AppCompatActivity(),recyclerinterface {
                 ViewGroup.LayoutParams.WRAP_CONTENT
             );
             dialogBinding.btnCustomAdd.setOnClickListener {
+
                 if (dialogBinding.etCustomtitle.text.toString().isNullOrEmpty()) {
                     dialogBinding.etCustomtitle.error = "Enter The Title"
                 } else if (dialogBinding.etCustomDescription.text.toString().isNullOrEmpty()) {
                     dialogBinding.etCustomDescription.error = "Enter The Description"
                 } else {
-                    student.add(
-                        DataClass(
-                            dialogBinding.etCustomtitle.text.toString(),
-                            dialogBinding.etCustomDescription.text.toString().toInt()
+                    class insert: AsyncTask<Void,Void,Void>() {
+                        override fun doInBackground(vararg p0: Void?): Void? {
+                            notesDbObj1.notesDao()
+                                .insertNotes( NotesEntityDataClass(
+                                    title = dialogBinding.etCustomtitle.text.toString(),
+                                    description = dialogBinding.etCustomDescription.text.toString()
+                                ))
+                            return null
+                        }
+
+                    }
+                    insert().execute()
+
+
+
+                 /*   student.add(
+                        NotesEntityDataClass(
+                          title = dialogBinding.etCustomtitle.text.toString(),
+                            description = dialogBinding.etCustomDescription.text.toString()
                         )
-                    )
+                    )*/
 
                     adapter.notifyDataSetChanged()
                     dialog.dismiss()
@@ -91,12 +108,11 @@ class MainActivity : AppCompatActivity(),recyclerinterface {
                 dialogBinding.etCustomDescription.error = "Enter Your Rollno"
             } else {
                 student.add(
-                    DataClass(
-                        dialogBinding.etCustomtitle.text.toString(),
-                        dialogBinding.etCustomDescription.text.toString().toInt()
+                    NotesEntityDataClass(
+                        title = dialogBinding.etCustomtitle.text.toString(),
+                        description = dialogBinding.etCustomDescription.text.toString()
                     )
                 )
-
                 adapter.notifyDataSetChanged()
                 dialog.dismiss()
 

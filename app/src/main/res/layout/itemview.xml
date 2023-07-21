@@ -6,8 +6,8 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/tvName"
-    android:text="@string/name"
+    android:id="@+id/tvTitle"
+    android:text="@string/title"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -15,9 +15,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvRollNo"
-        android:text="@string/rollno"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        android:id="@+id/tvDescription"
+        android:text="@string/description"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnUpdate"
         android:text="@string/update"
-        app:layout_constraintTop_toBottomOf="@+id/tvRollNo"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
         app:layout_constraintStart_toStartOf="parent"
         />
     <Button
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnDelete"
         android:text="@string/delete"
-        app:layout_constraintTop_toBottomOf="@+id/tvRollNo"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
         app:layout_constraintStart_toEndOf="@+id/btnUpdate"
         />
 
