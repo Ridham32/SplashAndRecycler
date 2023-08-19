@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(),recyclerinterface {
             dialog.getWindow()?.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
-            );
+            )
             dialogBinding.btnCustomAdd.setOnClickListener {
 
                 if (dialogBinding.etCustomtitle.text.toString().isNullOrEmpty()) {
